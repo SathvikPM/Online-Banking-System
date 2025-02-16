@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration [
+    <!ELEMENT hibernate-configuration (session-factory)>
+    <!ELEMENT session-factory (property*, mapping*)>
+    <!ELEMENT property (#PCDATA)>
+    <!ATTLIST property name CDATA #REQUIRED>
+    <!ELEMENT mapping EMPTY>
+    <!ATTLIST mapping class CDATA #REQUIRED>
+]>
+<hibernate-configuration>
+    <session-factory>
+        <!-- JDBC Database connection settings -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/OnlineBanking</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+
+        <!-- JDBC connection pool settings -->
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+
+        <!-- Specify dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Drop and re-create the database schema on startup -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Mention annotated class names -->
+        <mapping class="com.tap.model.Account" />
+        <mapping class="com.tap.model.Transaction" />
+        <mapping class="com.tap.model.User" />
+    </session-factory>
+</hibernate-configuration>

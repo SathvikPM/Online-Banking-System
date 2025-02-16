@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OnlineBankingSystem
+Bundle-SymbolicName: OnlineBankingSystem
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-22
+Automatic-Module-Name: OnlineBankingSystem
+Export-Package: com.tap.config,
+ com.tap.controller,
+ com.tap.dao,
+ com.tap.daoImp,
+ com.tap.main,
+ com.tap.model
