@@ -63,7 +63,7 @@ public class BankController {
     }
 
     @PostMapping("/account")
-    public String createAccount(@ModelAttribute("account") Account account, Model model) {
+    public String createAccount(@ModelAttribute Account account, Model model) {
         accountDAO.saveAccount(account);
         model.addAttribute("account", account);
         return "dashboard"; // Redirects to the success page
