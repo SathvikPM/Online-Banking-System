@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @PostMapping("/processUserRegister")
-    public String processUserRegister(@ModelAttribute("user") User user, HttpSession session, Model model) {
+    public String processUserRegister(@ModelAttribute User user, HttpSession session, Model model) {
         System.out.println("Registering User: " + user.getName() + ", " + user.getEmail());
 
         // Check if email already exists
