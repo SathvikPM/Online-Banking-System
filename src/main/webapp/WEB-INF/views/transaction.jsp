@@ -51,7 +51,7 @@
             margin: 10px 0 5px;
         }
 
-        input[type="number"], input[type="text"] {
+        input[type="number"], input[type="text"], select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -113,7 +113,10 @@
             <input type="number" id="accountId" name="accountId" required><br>
 
             <label for="transactionType">Transaction Type:</label>
-            <input type="text" id="transactionType" name="transactionType" required><br>
+            <select id="transactionType" name="transactionType" required>
+                <option value="withdraw">Withdraw</option>
+                <option value="deposit">Deposit</option>
+            </select><br>
 
             <label for="amount">Amount:</label>
             <input type="number" id="amount" name="amount" step="0.01" required><br>
