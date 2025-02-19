@@ -49,7 +49,7 @@
             color: #333;
         }
 
-        input[type="text"] {
+        input[type="text"], select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -96,7 +96,10 @@
             <input type="text" id="accountNumber" name="accountNumber" required><br>
 
             <label for="accountType">Account Type:</label>
-            <input type="text" id="accountType" name="accountType" required><br>
+            <select id="accountType" name="accountType" required>
+                <option value="savings">Savings</option>
+                <option value="current">Current</option>
+            </select><br>
 
             <label for="balance">Balance:</label>
             <input type="text" id="balance" name="balance" required><br>
