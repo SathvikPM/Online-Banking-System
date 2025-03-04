@@ -1,5 +1,6 @@
-package com.tap.controller;
 
+
+package com.tap.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,17 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.tap.dao.UserDAO;
 import com.tap.model.User;
-
+import com.tap.service.UserService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UserController {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserService userService;
 
     @GetMapping("/userLogin")
     public String showUserLoginPage() {
@@ -30,7 +29,7 @@ public class UserController {
         System.out.println("Logging in User: " + email);
 
         // Add login logic here, e.g., verify credentials against database
-        User user = userDAO.getUserByEmailAndPassword(email, password);
+        User user = userService.getUserByEmailAndPassword(email, password);
         if (user == null) {
             model.addAttribute("error", "Invalid email or password.");
             return "login"; // Redirect back to the login page
@@ -49,16 +48,14 @@ public class UserController {
 
     @PostMapping("/processUserRegister")
     public String processUserRegister(@ModelAttribute User user, HttpSession session, Model model) {
-        System.out.println("Registering User: " + user.getName() + ", " + user.getEmail());
-
         // Check if email already exists
-        if (userDAO.emailExists(user.getEmail())) {
+        if (userService.emailExists(user.getEmail())) {
             model.addAttribute("error", "Email already in use. Please use a different email.");
             return "register"; // Redirect back to the register page
         }
 
         // Save user to the database
-        userDAO.saveUser(user);
+        userService.saveUser(user);
 
         // Add user to model for success page
         session.setAttribute("user", user);
@@ -67,7 +64,6 @@ public class UserController {
 
         return "register-success"; // Redirects to the success page
     }
-
 
     @GetMapping("/dashboard")
     public String showDashboard(HttpSession session, Model model) {
