@@ -20,7 +20,7 @@ public class UserDAOImpl implements UserDAO {
     public void saveUser(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.save(user);
-        System.out.println("Saved User ID: " + user.getUserId());
+    
     }
 
     @Override
