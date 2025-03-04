@@ -1,29 +1,25 @@
 package com.tap.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.tap.dao.TransactionDAO;
-import com.tap.dao.AccountDAO;
 import com.tap.model.Account;
 import com.tap.model.Transaction;
-
+import com.tap.service.AccountService;
+import com.tap.service.TransactionService;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Controller
 public class TransactionController {
 
     @Autowired
-    private TransactionDAO transactionDAO;
+    private TransactionService transactionService;
 
     @Autowired
-    private AccountDAO accountDAO;
+    private AccountService accountService;
 
     @GetMapping("/transaction")
     public String showTransactionPage() {
@@ -33,14 +29,14 @@ public class TransactionController {
     @PostMapping("/transaction")
     public String createTransaction(@RequestParam int accountId, @RequestParam String transactionType,
                                     @RequestParam double amount, Model model) {
-        Account account = accountDAO.getAccountById(accountId);
+        Account account = accountService.getAccountById(accountId);
         if (account == null) {
             model.addAttribute("error", "Invalid Account ID.");
             return "transaction";
         }
 
         Transaction transaction = new Transaction(0, account, transactionType, amount, new Timestamp(System.currentTimeMillis()));
-        transactionDAO.saveTransaction(transaction);
+        transactionService.saveTransaction(transaction);
         model.addAttribute("message", "Transaction recorded successfully!");
 
         return "transaction";
@@ -66,8 +62,9 @@ public class TransactionController {
             return "viewTransactions";
         }
 
-        List<Transaction> transactions = transactionDAO.getTransactionsByAccountId(accountId);
+        List<Transaction> transactions = transactionService.getTransactionsByAccountId(accountId);
         model.addAttribute("transactions", transactions);
         return "viewTransactions";
     }
 }
+
